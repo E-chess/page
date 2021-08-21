@@ -4,14 +4,23 @@ from market.models import Item, User
 from market.forms import RegisterForm, LoginForm, PurchaseItemForm, SellItemForm
 from market import db
 from flask_login import login_user, logout_user, login_required, current_user
-
+from datetime import datetime
 @app.route('/')
 def home_page():
     return render_template('home.html')
 
-@app.route('/market', methods=['GET', 'POST'])
+@app.route('/aboutus')
+def about_us_page():
+    return render_template('about_us.html')
+
+@app.route("/help")
+def help_page():
+  flash("Drogi użtykowniku nie obsługujemy ziemniaków!", category='danger')
+  return render_template('help.html')
+
+@app.route('/tournament', methods=['GET', 'POST'])
 @login_required
-def market_page():
+def tournament_page():
     purchase_form = PurchaseItemForm()
     selling_form = SellItemForm()
     if request.method == "POST":
@@ -35,12 +44,21 @@ def market_page():
                 flash(f"Something went wrong with selling {s_item_object.name}", category='danger')
 
 
-        return redirect(url_for('market_page'))
+        return redirect(url_for('tournament_page'))
 
     if request.method == "GET":
         items = Item.query.filter_by(owner=None)
         owned_items = Item.query.filter_by(owner=current_user.id)
-        return render_template('market.html', items=items, purchase_form=purchase_form, owned_items=owned_items, selling_form=selling_form)
+        return render_template('tournament.html', items=items, purchase_form=purchase_form, owned_items=owned_items, selling_form=selling_form)
+
+@app.route('/join/<string:id_url>')
+def join_page(id_url : str):
+  if time.clock_gettime_ns() != time.clock_gettime_ns():
+    print("dsd")
+  else:
+    return redirect(url_for("home_page"))
+
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
@@ -53,7 +71,7 @@ def register_page():
         db.session.commit()
         login_user(user_to_create)
         flash(f"Account created successfully! You are now logged in as {user_to_create.username}", category='success')
-        return redirect(url_for('market_page'))
+        return redirect(url_for('tournament_page'))
     if form.errors != {}: #If there are not errors from the validations
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
@@ -70,7 +88,7 @@ def login_page():
         ):
             login_user(attempted_user)
             flash(f'Success! You are logged in as: {attempted_user.username}', category='success')
-            return redirect(url_for('market_page'))
+            return redirect(url_for('tournament_page'))
         else:
             flash('Username and password are not match! Please try again', category='danger')
 
@@ -79,15 +97,11 @@ def login_page():
 @app.route('/logout')
 def logout_page():
     logout_user()
-    flash("You have been logged out!", category='info')
+    flash("Zostałeś wylogowany", category='info')
     return redirect(url_for("home_page"))
 
 
 
-
-
-
-
-
-
-
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
+print(current_time)
