@@ -1,14 +1,10 @@
-{% extends 'base.html' %}
-{% block title %}
-    Rejestracja
-{% endblock %}
+{% extends 'base.html' %} {% block title %} Rejestracja {% endblock %} {% block content %}
 
-{% block content %}
 <body class="text-center">
-    <div class="container">
-        <form method="POST" class="form-register" style="color:white">
-            {{ form.hidden_tag() }}
-            <img class="mb-4" src="https://res.cloudinary.com/jimshapedcoding/image/upload/v1597332609/android-icon-192x192_ove2a7.png" alt="">
+	<div class="container">
+		<form method="POST" class="form-register" style="color:white">
+			{{ form.hidden_tag() }}
+			<img class="mb-4" src="https://res.cloudinary.com/jimshapedcoding/image/upload/v1597332609/android-icon-192x192_ove2a7.png" alt="">
             <h1 class="h3 mb-3 font-weight-normal">
                 Proszę utworzyć konto
             </h1>

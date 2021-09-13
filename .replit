@@ -1,1 +1,2 @@
-run = "python main.py"
+language = "python3"
+run = "pip install poetry==1.1.8\npip install flask_sqlalchemy flask_bcrypt flask_login flask_wtf email_validator\npython main.py"

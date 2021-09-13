@@ -53,7 +53,7 @@ def tournament_page():
 
 @app.route('/join/<string:id_url>')
 def join_page(id_url : str):
-  if time.clock_gettime_ns() != time.clock_gettime_ns():
+  if time.clock_gettime_ns() == time.clock_gettime_ns():
     print("dsd")
   else:
     return redirect(url_for("home_page"))

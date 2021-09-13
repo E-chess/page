@@ -1,17 +1,13 @@
-from market import app
-from tools import cls
+import os
+import pkg_resources
 
-def run():
-    if __name__ == '__main__':
-        app.run(debug=True, host="0.0.0.0", port=8080)
+installed_packages = pkg_resources.working_set
+installed_packages_dict = {}
+for i in installed_packages:
+    installed_packages_dict[i.key] = i.version
 
-#Checks if the main.py file has executed directly and not imported
-try:
-    run()
+poetry_value = installed_packages_dict.get('poetry')
+if poetry_value != '1.1.2':
+    os.system('pip install poetry==1.1.8')
 
-except ImportError:
-    import email_validator
-    
-    run()
-    
-    cls()
+os.system('python page.py')
