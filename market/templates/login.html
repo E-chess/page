@@ -4,9 +4,9 @@
 	<div class="container">
 		<form method="POST" class="form-signin" style="color:white">
 			{{ form.hidden_tag() }}
-			<img class="mb-4" src="https://res.cloudinary.com/jimshapedcoding/image/upload/v1597332609/android-icon-192x192_ove2a7.png" alt="">
+			<img class="mb-4" src="#" alt="">
             <h1 class="h3 mb-3 font-weight-normal">
-                Proszę zalogój się
+                Proszę zaloguj się
             </h1>
             <br>
             {{ form.username.label() }}
@@ -19,8 +19,8 @@
 
 
             <div class="checkbox mb-3">
-               <h6>Do not have an account?</h6>
-               <a class="btn btn-sm btn-secondary" href="{{ url_for('register_page') }}">Register</a>
+               <h6>Nie masz jeszcze konta?</h6>
+               <a class="btn btn-sm btn-secondary" href="{{ url_for('register_page') }}">Rejestracja</a>
             </div>
 
             {{ form.submit(class="btn btn-lg btn-block btn-primary") }}

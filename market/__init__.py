@@ -2,12 +2,15 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from appmap.flask import AppmapFlask
 import os
 
 app = Flask(__name__, template_folder="templates")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tournaments.db'
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+app.config['APPMAP'] = True
 db = SQLAlchemy(app)
+appmap_flask = AppmapFlask(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = "login_page"
