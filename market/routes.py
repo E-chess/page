@@ -123,6 +123,9 @@ def logout_page():
     flash("Zostałeś wylogowany", category='info')
     return redirect(url_for("home_page"))
 
+@app.route('image')
+def image_page():
+	return redirect(url_for("home_page"))
 
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
