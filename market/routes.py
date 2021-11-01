@@ -1,10 +1,11 @@
 from market import app
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, jsonify
 from market.models import Item, User
 from market.forms import RegisterForm, LoginForm, PurchaseItemForm, SellItemForm
 from market import db
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
+import jsonify
 
 
 @app.route('/')
@@ -123,9 +124,9 @@ def logout_page():
     flash("Zostałeś wylogowany", category='info')
     return redirect(url_for("home_page"))
 
-@app.route('image')
-def image_page():
-	return redirect(url_for("home_page"))
+@app.route("/ip", methods=["GET"])
+def ip():
+    return jsonify({'ip': request.remote_addr}), 200
 
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
