@@ -1,6 +1,6 @@
 # MIT License
 
-## Copyright (c) 2021 Szach Online
+## Copyright (c) 2021 Szachy Online
 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

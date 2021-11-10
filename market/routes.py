@@ -1,3 +1,5 @@
+import time
+
 from market import app
 from flask import render_template, redirect, url_for, flash, request, jsonify
 from market.models import Item, User
@@ -30,7 +32,7 @@ def tournament_page():
     purchase_form = PurchaseItemForm()
     selling_form = SellItemForm()
     if request.method == "POST":
-        #Purchase Item Logic
+        # Purchase Item Logic
         purchased_item = request.form.get('purchased_item')
         p_item_object = Item.query.filter_by(name=purchased_item).first()
         if p_item_object:
@@ -43,7 +45,7 @@ def tournament_page():
                 flash(
                     f"Unfortunately, you don't have enough money to purchase {p_item_object.name}!",
                     category='danger')
-        #Sell Item Logic
+        # Sell Item Logic
         sold_item = request.form.get('sold_item')
         s_item_object = Item.query.filter_by(name=sold_item).first()
         if s_item_object:
@@ -69,21 +71,16 @@ def tournament_page():
                                selling_form=selling_form)
 
 
-@app.route('/join/<string:id_url>')
-def join_page(id_url: str):
-    if time.clock_gettime_ns() == time.clock_gettime_ns():
-        print("dsd")
-    else:
-        return redirect(url_for("home_page"))
+@app.route('/join/<string:id>')
+def join_page(id: str):
+    return render_template('tournament_join.html', id_url=id_url)
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
-        user_to_create = User(username=form.username.data,
-                              email_address=form.email_address.data,
-                              password=form.password1.data)
+        user_to_create = User(username=form.username.data, email_address=form.email_address.data, password=form.password1.data)
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)
@@ -127,7 +124,3 @@ def logout_page():
 @app.route("/ip", methods=["GET"])
 def ip():
     return jsonify({'ip': request.remote_addr}), 200
-
-now = datetime.now()
-current_time = now.strftime("%H:%M:%S")
-print(current_time)

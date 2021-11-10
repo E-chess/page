@@ -2,3 +2,5 @@
 t.txt
 market/tournaments.db
 .env
+temporary.py
+*.appmap.json
