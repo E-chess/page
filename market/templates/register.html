@@ -1,36 +1,36 @@
 {% extends 'base.html' %} {% block title %} Rejestracja {% endblock %} {% block content %}
 
-<body class="text-center">
-	<div class="container">
-		<form method="POST" class="form-register" style="color:white">
-			{{ form.hidden_tag() }}
-			<img class="mb-4" src="#" alt="">
+    <body class="text-center">
+    <div class="container">
+        <form method="POST" class="form-register" style="color:white">
+            {{ form.hidden_tag() }}
+            <img class="mb-4" src="#" alt="">
             <h1 class="h3 mb-3 font-weight-normal">
                 Proszę utworzyć konto
             </h1>
             <br>
             {{ form.username.label() }}
-            {{ form.username(class="form-control", placeholder="User Name") }}
+            {{ form.username(class="form-control", placeholder="Nazwa użytkownika") }}
 
             {{ form.email_address.label() }}
-            {{ form.email_address(class="form-control", placeholder="Email Address") }}
+            {{ form.email_address(class="form-control", placeholder="Adres email") }}
 
-            {{ form.password1.label() }}
-            {{ form.password1(class="form-control", placeholder="Password") }}
+            {{ form.password.label() }}
+            {{ form.password(class="form-control", placeholder="Hasło") }}
 
-            {{ form.password2.label() }}
-            {{ form.password2(class="form-control", placeholder="Confirm Password") }}
+            {{ form.confirm_password.label() }}
+            {{ form.confirm_password(class="form-control", placeholder="Potwierć hasło") }}
 
             <br>
 
             <div class="checkbox mb-3">
-               <h6>Masz już konto?</h6>
-               <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Zaloguj</a>
+                <h6>Masz już konto?</h6>
+                <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Zaloguj</a>
             </div>
 
             {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
 
         </form>
     </div>
-</body>
+    </body>
 {% endblock %}

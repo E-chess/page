@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% block title %} Dołącz {% endblock %} {% block content %}
+
+
+<a href="https://lichess.org/tournament/{{ id_api }}" class="btn btn-success"> Dołącz </a>
+<a href="{{ url_for('tournament_page') }}" class="btn btn-danger">Anuluj</a>
+
+{% endblock %}
