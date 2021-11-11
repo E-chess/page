@@ -1,6 +1,5 @@
 from market import app
 from tools import cls
-import threading
 
 
 def page():

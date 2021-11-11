@@ -1,5 +1,6 @@
-from market import db, login_manager, bcrypt
 from flask_login import UserMixin
+
+from market import db, login_manager, bcrypt
 
 
 @login_manager.user_loader
@@ -13,7 +14,6 @@ class User(db.Model, UserMixin):
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
     budget = db.Column(db.Integer(), nullable=False, default=1)
-    items = db.relationship('Item', backref='owned_user', lazy=True)
 
     @property
     def prettier_budget(self):
@@ -38,28 +38,13 @@ class User(db.Model, UserMixin):
     def can_purchase(self, item_obj):
         return self.budget >= item_obj.price
 
-    def can_sell(self, item_obj):
-        return item_obj in self.items
-
 
 class Item(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     id_api = db.Column(db.String(), nullable=False, unique=True)
     name = db.Column(db.String(length=30), nullable=False, unique=True)
     price = db.Column(db.Integer(), nullable=False)
-    barcode = db.Column(db.String(length=12), nullable=False, unique=True)
-    description = db.Column(db.String(length=1024), nullable=False)
-    owner = db.Column(db.Integer(), db.ForeignKey('user.id'))
+    description = db.Column(db.String(), nullable=False)
 
     def __repr__(self):
         return f'Item {self.name}'
-
-    def buy(self, user):
-        self.owner = user.id
-        user.budget -= self.price
-        db.session.commit()
-
-    def sell(self, user):
-        self.owner = None
-        user.budget += self.price
-        db.session.commit()

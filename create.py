@@ -1,12 +1,10 @@
 import datetime
-
-
-import berserk
 import os
 
+import berserk
+
 from market import db
-from market.models import Item, User, bcrypt
-from tools import time
+from market.models import Item, User
 
 
 def show():
@@ -18,7 +16,7 @@ def show():
 
 
 def add(id_api, name):
-    item1 = Item(id_api=id_api, name=name, price=100000000, barcode="11",
+    item1 = Item(id_api=id_api, name=name, price=100000000,
                  description="Proszę nie dołączać do tego turnieju")
 
     db.session.add(item1)
@@ -77,12 +75,16 @@ def delete(id):
     Item.query.filter_by(id=id).delete()
     db.session.commit()
 
+
 # if_start()
 def test_start():
-
     test = User(username="admin", email_address="admin@example.pl", password="adminadmin")
 
     db.session.add(test)
     db.session.commit()
 
+# db.drop_all()
+
 # db.create_all()
+
+# add_turniej()
