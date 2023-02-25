@@ -1,2 +1,6 @@
 language = "python3"
 run = "python main.py"
+
+[auth]
+pageEnabled = false
+buttonEnabled = false
